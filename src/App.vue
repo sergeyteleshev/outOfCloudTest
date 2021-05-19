@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <AssemblyHeader text="Взгляните на процесс сборки своими глазами"/>
+    <AssemblySlider/>
+    <img alt="Vue logo" src="assets/img/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import AssemblyHeader from "@/components/AssemblyHeader";
+import AssemblySlider from "@/components/AssemblySlider";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    AssemblyHeader,
+    AssemblySlider,
   }
 }
 </script>
