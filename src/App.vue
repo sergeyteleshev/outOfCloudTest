@@ -4,10 +4,11 @@
       <AssemblyHeader class="assembly-header-component" text="Взгляните на процесс сборки своими глазами"/>
       <AssemblySlider class="assembly-slider-component"
                       v-if="sliderData" :data="sliderData"
-                      :autoChange="true"
+                      :autoChange="false"
                       :interval="4000"
       />
-      <AssemblyButton class="assembly-button-component"/>
+      <AssemblyButton v-on:click="openPopup" class="assembly-button-component"/>
+      <AssemblyPopupWindow v-if="isPopupShowed"/>
     </div>
   </div>
 </template>
@@ -17,6 +18,7 @@ import AssemblyHeader from "@/components/AssemblyHeader";
 import AssemblySlider from "@/components/AssemblySlider";
 import {fetchData} from "@/helpers/fetchData";
 import AssemblyButton from "@/components/AssemblyButton";
+import AssemblyPopupWindow from "@/components/AssemblyPopupWindow";
 
 export default {
   name: 'App',
@@ -24,13 +26,16 @@ export default {
     AssemblyButton,
     AssemblyHeader,
     AssemblySlider,
+    AssemblyPopupWindow,
   },
   data() {
     return {
         sliderData: [
         {id: 1, img: "pepliks.png", title: "Привезём точно по списку", text: "Сборщик берëт с собой наручный терминал, на котором он видит весь список покупок для каждого заказа."},
-        {id: 2, img: "sunset.jpg", title: "Test", text: "Text"},
-        {id: 3, img: "water.jpg", title: "AUE", text: "Brat"},
+        {id: 2, img: "pepliks2.png", title: "Собираем быстро и эффективно", text: "Собираем быстро и эффективно Для улучшения эргономики пространства товары размещены от тяжëлых к лëгким, находящимся уже в конечной зоне упаковки."},
+        {id: 3, img: "pepliks3.png", title: "За свежесть и качество отвечаем", text: "За свежесть и качество отвечаем Выделены специальные зоны, в том числе холодная и морозильная."},
+        {id: 4, img: "pepliks4.png", title: "Шампунь не положат рядом с рыбой", text: "Шампунь не положат рядом с рыбой Собираем и упаковываем ваш заказ с заботой: соблюдаем принципы товарного соседства и учитываем вес товара."},
+        {id: 5, img: "pepliks5.png", title: "Довезëм в сохранности даже яйца", text: "Бережно транспортируем контейнеры, фиксируя их стяжными ремнями. Системы охлаждения поддерживают температурный режим."},
       ],
     }
   },
@@ -38,7 +43,19 @@ export default {
     async getSliderData() {
       const res = fetchData('sliderData.json')
       console.log(res)
+    },
+    openPopup() {
+      this.isPopupShowed = true
+    },
+    closePopup() {
+      this.isPopupShowed = false
     }
+  },
+  props : {
+    isPopupShowed: {
+      type: Boolean,
+      default: false,
+    },
   }
 }
 </script>

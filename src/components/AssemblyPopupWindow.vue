@@ -1,0 +1,109 @@
+<template>
+  <div class="assembly-popup-wrapper">
+    <div class="assembly-popup-window">
+      <div class="assembly-popup-window__close"><span class="assembly-popup-close">X</span></div>
+      <h3 class="assembly-popup-window__title">Чтобы продолжить покупки необходимо авторизоваться</h3>
+      <input class="assembly-popup-window__email" placeholder="Введите ваш e-mail">
+      <button class="assembly-popup-window__submit">Отправить</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "AssemblyPopupWindow",
+  props: {
+    isShowed: {
+      type: Boolean,
+      default: false,
+    }
+  }
+}
+</script>
+
+<style scoped>
+.assembly-popup-wrapper
+{
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0,0,0,0.5);
+}
+
+.assembly-popup-window
+{
+  background: white;
+  padding: 30px;
+  width: 400px;
+  border-radius: 15px;
+  margin: 150px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.assembly-popup-window__email
+{
+  margin-top: 20px;
+  padding: 11px 15px;
+  font-family: 'RotondaC', serif;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: .05px;
+  color: #043e44;
+  border: 1px solid #dfdfdf;
+  border-radius: 6px;
+}
+
+.assembly-popup-window__submit
+{
+  margin-top: 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  -webkit-transition: background-color .3s ease;
+  transition: background-color .3s ease;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: 'RotondaC', serif;
+  letter-spacing: 0.1em;
+  height: 50px;
+  background: linear-gradient(0deg, #7DB945, #7DB945),
+  linear-gradient(0deg, #7DB945, #7DB945);
+}
+
+.assembly-popup-window__title
+{
+  margin-top: 10px;
+  font-family: RotondaC, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  /* or 128% */
+  text-align: center;
+  color: #26303B;
+}
+
+.assembly-popup-window__close
+{
+  text-align: right;
+  font-family: RotondaC, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  /* or 128% */
+  color: #26303B;
+}
+
+.assembly-popup-close:hover
+{
+  cursor: pointer;
+}
+</style>
