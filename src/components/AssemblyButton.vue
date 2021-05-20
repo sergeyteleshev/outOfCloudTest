@@ -28,4 +28,11 @@ export default {
     text-align: center;
     color: white;
   }
+
+  .assembly__button:hover
+  {
+    background: linear-gradient(0deg, #7DC945, #7DC945),
+    linear-gradient(0deg, #7DC945, #7DC945);
+    cursor: pointer;
+  }
 </style>

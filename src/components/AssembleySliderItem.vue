@@ -1,5 +1,6 @@
 <template>
   <div class="assembly-slider__item">
+    <div class="assembly-slider-number">{{slideNumber}}</div>
     <div class="assembly-slider__img" v-bind:style="{backgroundImage: 'url(' + require('../assets/img/' + itemData.img) + ')'}"></div>
     <h3 class="assembly-slider__title">{{itemData.title}}</h3>
     <div class="assembly-slider__text">{{ itemData.text }}</div>
@@ -13,14 +14,19 @@ export default {
     itemData: {
       type: Object,
       default: () => {},
+    },
+    slideNumber: {
+      type: Number,
+      default: 1,
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 .assembly-slider__img
 {
+  margin: 0 auto;
   width: 561px;
   height: 316px;
   background-position: center;
@@ -30,12 +36,9 @@ export default {
 
 .assembly-slider__item
 {
+  text-align: center;
   width: 640px;
   height: 450px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 40px;
   background-color: white;
   box-shadow: 0px 0px 40px 0px #0000001A;
@@ -65,5 +68,24 @@ export default {
   letter-spacing: 0em;
   text-align: center;
   color: #26303B;
+}
+
+.assembly-slider-number
+{
+  position: relative;
+  width: 50px;
+  height: 45px;
+  left: 0px;
+  top: 28px;
+  font-family: 'RotondaC',serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 46px;
+  /* or 209% */
+  text-align: center;
+  color: #7DB945;
+  background: white;
+  border-radius: 50px;
 }
 </style>

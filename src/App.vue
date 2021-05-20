@@ -2,7 +2,11 @@
   <div id="app">
     <div class="container">
       <AssemblyHeader class="assembly-header-component" text="Взгляните на процесс сборки своими глазами"/>
-      <AssemblySlider class="assembly-slider-component" :data="sliderData"/>
+      <AssemblySlider class="assembly-slider-component"
+                      v-if="sliderData" :data="sliderData"
+                      :autoChange="true"
+                      :interval="4000"
+      />
       <AssemblyButton class="assembly-button-component"/>
     </div>
   </div>
@@ -23,7 +27,7 @@ export default {
   },
   data() {
     return {
-      sliderData: [
+        sliderData: [
         {id: 1, img: "pepliks.png", title: "Привезём точно по списку", text: "Сборщик берëт с собой наручный терминал, на котором он видит весь список покупок для каждого заказа."},
         {id: 2, img: "sunset.jpg", title: "Test", text: "Text"},
         {id: 3, img: "water.jpg", title: "AUE", text: "Brat"},
@@ -96,7 +100,7 @@ table {
 .container
 {
   margin: 0 auto;
-  width: 800px;
+  width: 715px;
   display: flex;
   flex-direction: column;
   justify-content: center;
