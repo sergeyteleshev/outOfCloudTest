@@ -1,15 +1,19 @@
 <template>
   <div class="assembly-popup-wrapper">
     <div class="assembly-popup-window">
-      <div class="assembly-popup-window__close"><span class="assembly-popup-close">X</span></div>
+      <div class="assembly-popup-window__close"><span @click="closePopup" class="assembly-popup-close">X</span></div>
       <h3 class="assembly-popup-window__title">Чтобы продолжить покупки необходимо авторизоваться</h3>
       <input class="assembly-popup-window__email" placeholder="Введите ваш e-mail">
-      <button class="assembly-popup-window__submit">Отправить</button>
+      <button @click="submitEmailAuth" class="assembly-popup-window__submit">Отправить</button>
+      <div class="assembly-popup-window__error">{{isErrorShowed ? errorMessage : null}}</div>
     </div>
   </div>
 </template>
 
 <script>
+
+import {isEmailValid} from "@/helpers/email";
+
 export default {
   name: "AssemblyPopupWindow",
   props: {
@@ -17,7 +21,38 @@ export default {
       type: Boolean,
       default: false,
     }
-  }
+  },
+  data() {
+    return {
+      errorMessage: "Неверный формат email. Пример: example@yandex.ru",
+      isErrorShowed: false,
+    }
+  },
+  methods: {
+    closePopup() {
+      this.$emit('closePopup')
+    },
+    submitEmailAuth() {
+      const email = document.getElementsByClassName("assembly-popup-window__email")[0].value
+      const isEmailVal = isEmailValid(email)
+
+      if(isEmailVal) {
+        this.hideEmailError()
+        console.log(`${email} провалидирован и готов к отправке на сервер`)
+        this.$emit('submitEmailAuth', email)
+      }
+      else {
+        console.log(`Упс! Невалидный email`)
+        this.showEmailError()
+      }
+    },
+    showEmailError() {
+      this.isErrorShowed = true
+    },
+    hideEmailError() {
+      this.isErrorShowed = false
+    }
+  },
 }
 </script>
 
@@ -77,6 +112,12 @@ export default {
   linear-gradient(0deg, #7DB945, #7DB945);
 }
 
+.assembly-popup-window__submit:hover
+{
+  background: linear-gradient(0deg, #7DC945, #7DC945),
+  linear-gradient(0deg, #7DC945, #7DC945);
+}
+
 .assembly-popup-window__title
 {
   margin-top: 10px;
@@ -84,7 +125,6 @@ export default {
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 20px;
   /* or 128% */
   text-align: center;
   color: #26303B;
@@ -105,5 +145,13 @@ export default {
 .assembly-popup-close:hover
 {
   cursor: pointer;
+}
+
+.assembly-popup-window__error
+{
+  margin-top: 16px;
+  color: rgb(222, 7, 20);
+  text-align: center;
+  font-family: 'RotondaC', serif;
 }
 </style>

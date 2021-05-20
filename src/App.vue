@@ -7,18 +7,18 @@
                       :autoChange="false"
                       :interval="4000"
       />
-      <AssemblyButton v-on:click="openPopup" class="assembly-button-component"/>
-      <AssemblyPopupWindow v-if="isPopupShowed"/>
+      <AssemblyButton @openPopup="openPopup" class="assembly-button-component"/>
+      <AssemblyPopupWindow @submitEmailAuth="submitEmailAuth" @closePopup="closePopup" v-if="isPopupShowed"/>
     </div>
   </div>
 </template>
 
 <script>
 import AssemblyHeader from "@/components/AssemblyHeader";
-import AssemblySlider from "@/components/AssemblySlider";
+import AssemblySlider from "@/components/slider/AssemblySlider";
 import {fetchData} from "@/helpers/fetchData";
 import AssemblyButton from "@/components/AssemblyButton";
-import AssemblyPopupWindow from "@/components/AssemblyPopupWindow";
+import AssemblyPopupWindow from "@/components/popup/AssemblyPopupWindow";
 
 export default {
   name: 'App',
@@ -35,7 +35,7 @@ export default {
         {id: 2, img: "pepliks2.png", title: "Собираем быстро и эффективно", text: "Собираем быстро и эффективно Для улучшения эргономики пространства товары размещены от тяжëлых к лëгким, находящимся уже в конечной зоне упаковки."},
         {id: 3, img: "pepliks3.png", title: "За свежесть и качество отвечаем", text: "За свежесть и качество отвечаем Выделены специальные зоны, в том числе холодная и морозильная."},
         {id: 4, img: "pepliks4.png", title: "Шампунь не положат рядом с рыбой", text: "Шампунь не положат рядом с рыбой Собираем и упаковываем ваш заказ с заботой: соблюдаем принципы товарного соседства и учитываем вес товара."},
-        {id: 5, img: "pepliks5.png", title: "Довезëм в сохранности даже яйца", text: "Бережно транспортируем контейнеры, фиксируя их стяжными ремнями. Системы охлаждения поддерживают температурный режим."},
+        {id: 5, img: "pepliks5.png", title: "Довезём в сохранности даже яйца", text: "Бережно транспортируем контейнеры, фиксируя их стяжными ремнями. Системы охлаждения поддерживают температурный режим."},
       ],
     }
   },
@@ -49,6 +49,19 @@ export default {
     },
     closePopup() {
       this.isPopupShowed = false
+    },
+    showEmailError() {
+      this.isErrorShowed = true
+    },
+    async submitEmailAuth(email) {
+      //todo чёто не асинхронно
+      //todo вывести спасибо после того как пришло на сервер
+      await setInterval(function() {
+      }, 5000);
+
+      console.log(`${email} улетел на сервер`)
+
+      this.user = {...this.user, email}
     }
   },
   props : {

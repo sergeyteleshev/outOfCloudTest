@@ -1,7 +1,7 @@
 <template>
     <div class="assembly-slider">
       <div class="assembly-slider__nav" v-on:click="prevSlide($props.data)">
-        <img :src="require('../assets/img/nav left.svg')">
+        <img :src="require('../../assets/img/nav left.svg')">
       </div>
       <div class="assembly-slider-item-wrapper">
         <div class="assembly-slider" :style="`margin-left: -${(100 * currentSlideIndex)}%`">
@@ -14,13 +14,13 @@
         </div>
       </div>
       <div class="assembly-slider__nav" v-on:click="nextSlide($props.data)">
-        <img :src="require('../assets/img/nav right.svg')"/>
+        <img :src="require('../../assets/img/nav right.svg')"/>
       </div>
     </div>
 </template>
 
 <script>
-import AssemblySliderItem from "@/components/AssembleySliderItem";
+import AssemblySliderItem from "@/components/slider/AssembleySliderItem";
 
 export default {
   name: "AssemblySlider",
@@ -76,6 +76,7 @@ export default {
 .assembly-slider
 {
   display: flex;
+  flex-direction: row;
   overflow: hidden;
   justify-content: flex-start;
   align-items: center;
@@ -89,6 +90,7 @@ export default {
 
 .assembly-slider__nav:hover
 {
+  cursor: pointer;
   background: rgba(0,0,0,0.15);
 }
 

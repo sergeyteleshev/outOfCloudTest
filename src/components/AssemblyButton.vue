@@ -1,10 +1,15 @@
 <template>
-  <button class="assembly__button">К покупкам</button>
+  <button @click="openPopup" class="assembly__button">К покупкам</button>
 </template>
 
 <script>
 export default {
-  name: "AssemblyButton"
+  name: "AssemblyButton",
+  methods: {
+    openPopup() {
+      this.$emit('openPopup')
+    }
+  }
 }
 </script>
 
