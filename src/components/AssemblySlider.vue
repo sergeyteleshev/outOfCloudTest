@@ -1,38 +1,75 @@
 <template>
-  <div class="assembly-slider">
-    <div class="assembly-slider__nav">
-      <img src="img/nav%20left.svg">
+  <div v-on:load="getSliderData()" class="assembly-slider">
+    <div class="assembly-slider__nav" v-on:click="prevSlide($props.data)">
+      <img :src="require('../assets/img/nav left.svg')">
     </div>
-    <div class="assembly-slider__content">
-      <img class="assembly-slider__img" src="img/pepliks.png" alt="pepliks"/>
-      <h3 class="assembly-slider__title">Привезём точно по списку</h3>
-      <div class="assembly-slider__text">
-        Сборщик берëт с собой наручный терминал, на котором он видит весь список покупок для каждого заказа.
-      </div>
-    </div>
-    <div class="assembly-slider__nav">
-      <img src="img/nav%20right.svg">
+    <AssemblySliderItem
+        :itemData="$props.data[this.currentSlideIndex]"
+    />
+    <div class="assembly-slider__nav" v-on:click="nextSlide($props.data)">
+      <img :src="require('../assets/img/nav right.svg')">
     </div>
   </div>
 </template>
 
 <script>
+import AssemblySliderItem from "@/components/AssembleySliderItem";
+
 export default {
   name: "AssemblySlider",
-  data: Object,
+  components: {
+    AssemblySliderItem
+  },
+  props: {
+    data: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      currentSlideIndex: 0,
+    }
+  },
+  methods: {
+    nextSlide(data) {
+      if(this.currentSlideIndex >= data.length - 1)
+        this.currentSlideIndex = 0
+      else
+        this.currentSlideIndex++
+    },
+    prevSlide(data) {
+      if(this.currentSlideIndex === 0)
+        this.currentSlideIndex = data.length - 1
+      else
+        this.currentSlideIndex--
+    }
+  }
 }
 </script>
 
 <style scoped>
-.assembly-header
+.assembly-slider
 {
-  font-family: RotondaC, serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 46px;
-  /* or 128% */
-  text-align: center;
-  color: #26303B;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.assembly-slider__nav
+{
+  height: 100%;
+  padding: 0 20px;
+}
+
+.assembly-slider__nav:hover
+{
+  background: rgba(0,0,0,0.15);
+}
+
+.assembly-slider__nav img
+{
+  width: 20px;
+  height: 40px;
 }
 </style>
