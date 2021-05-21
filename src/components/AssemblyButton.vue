@@ -1,5 +1,5 @@
 <template>
-  <button @click="openPopup" class="assembly__button">К покупкам</button>
+  <button v-on:click="openPopup" class="assembly__button">К покупкам</button>
 </template>
 
 <script>

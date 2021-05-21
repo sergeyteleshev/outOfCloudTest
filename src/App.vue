@@ -8,7 +8,7 @@
                       :interval="4000"
       />
       <AssemblyButton @openPopup="openPopup" class="assembly-button-component"/>
-      <AssemblyPopupWindow @submitEmailAuth="submitEmailAuth" @closePopup="closePopup" v-if="isPopupShowed"/>
+      <AssemblyPopupWindow :isEmailSubmitted="isEmailSubmitted" @submitEmailAuth="submitEmailAuth" @closePopup="closePopup" v-if="isPopupShowed"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 <script>
 import AssemblyHeader from "@/components/AssemblyHeader";
 import AssemblySlider from "@/components/slider/AssemblySlider";
-import {fetchData} from "@/helpers/fetchData";
+import {myFetch} from "@/helpers/fetch";
 import AssemblyButton from "@/components/AssemblyButton";
 import AssemblyPopupWindow from "@/components/popup/AssemblyPopupWindow";
 
@@ -37,13 +37,12 @@ export default {
         {id: 4, img: "pepliks4.png", title: "Шампунь не положат рядом с рыбой", text: "Шампунь не положат рядом с рыбой Собираем и упаковываем ваш заказ с заботой: соблюдаем принципы товарного соседства и учитываем вес товара."},
         {id: 5, img: "pepliks5.png", title: "Довезём в сохранности даже яйца", text: "Бережно транспортируем контейнеры, фиксируя их стяжными ремнями. Системы охлаждения поддерживают температурный режим."},
       ],
+      isPopupShowed: false,
+      isEmailSubmitted: false,
+      user: {},
     }
   },
   methods: {
-    async getSliderData() {
-      const res = fetchData('sliderData.json')
-      console.log(res)
-    },
     openPopup() {
       this.isPopupShowed = true
     },
@@ -53,23 +52,21 @@ export default {
     showEmailError() {
       this.isErrorShowed = true
     },
+    submitEmailSuccess(email) {
+      const vm = this
+      console.log(email)
+      vm.user = {...vm.user, email}
+      vm.isEmailSubmitted = true
+    },
     async submitEmailAuth(email) {
-      //todo чёто не асинхронно
-      //todo вывести спасибо после того как пришло на сервер
-      await setInterval(function() {
-      }, 5000);
-
-      console.log(`${email} улетел на сервер`)
-
-      this.user = {...this.user, email}
+      const vm = this
+      setTimeout(function() {
+        const url = window.location.href
+        myFetch(url, vm, [email], vm.submitEmailSuccess)
+      }, 1000);
     }
   },
-  props : {
-    isPopupShowed: {
-      type: Boolean,
-      default: false,
-    },
-  }
+  props : {}
 }
 </script>
 

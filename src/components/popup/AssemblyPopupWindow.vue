@@ -3,9 +3,10 @@
     <div class="assembly-popup-window">
       <div class="assembly-popup-window__close"><span @click="closePopup" class="assembly-popup-close">X</span></div>
       <h3 class="assembly-popup-window__title">Чтобы продолжить покупки необходимо авторизоваться</h3>
-      <input class="assembly-popup-window__email" placeholder="Введите ваш e-mail">
-      <button @click="submitEmailAuth" class="assembly-popup-window__submit">Отправить</button>
-      <div class="assembly-popup-window__error">{{isErrorShowed ? errorMessage : null}}</div>
+      <input v-if="!isEmailSubmitted" class="assembly-popup-window__email" placeholder="Введите ваш e-mail">
+      <button v-if="!isEmailSubmitted" @click="submitEmailAuth" class="assembly-popup-window__submit">Отправить</button>
+      <div v-if="!isEmailSubmitted" class="assembly-popup-window__error">{{isErrorShowed ? errorMessage : null}}</div>
+      <div v-if="isEmailSubmitted" class="assembly-popup-window__submitted">Спасибо!</div>
     </div>
   </div>
 </template>
@@ -18,6 +19,10 @@ export default {
   name: "AssemblyPopupWindow",
   props: {
     isShowed: {
+      type: Boolean,
+      default: false,
+    },
+    isEmailSubmitted: {
       type: Boolean,
       default: false,
     }
@@ -151,6 +156,15 @@ export default {
 {
   margin-top: 16px;
   color: rgb(222, 7, 20);
+  text-align: center;
+  font-family: 'RotondaC', serif;
+}
+
+.assembly-popup-window__submitted
+{
+  margin-top: 16px;
+  color: #7DB945;
+  font-size: 24px;
   text-align: center;
   font-family: 'RotondaC', serif;
 }

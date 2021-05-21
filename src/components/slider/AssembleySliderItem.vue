@@ -41,7 +41,7 @@ export default {
   height: 450px;
   padding: 40px;
   background-color: white;
-  box-shadow: 0px 0px 40px 0px #0000001A;
+  box-shadow: 0 0 40px 0 #0000001A;
   border-radius: 10px;
 }
 
@@ -54,7 +54,7 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: center;
 }
 
@@ -65,7 +65,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: center;
   color: #26303B;
 }
@@ -75,7 +75,7 @@ export default {
   position: relative;
   width: 50px;
   height: 45px;
-  left: 0px;
+  left: 0;
   top: 28px;
   font-family: 'RotondaC',serif;
   font-style: normal;
