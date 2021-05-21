@@ -6,7 +6,14 @@
 export default {
   name: "AssemblyHeader",
   props: {
-    text: String
+    text: {
+      type: String,
+      default: '',
+    },
+    fontSize: {
+      type: Number,
+      default: 16,
+    }
   }
 }
 </script>

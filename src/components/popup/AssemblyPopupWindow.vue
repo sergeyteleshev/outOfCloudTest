@@ -7,6 +7,7 @@
       <button v-if="!isEmailSubmitted" @click="submitEmailAuth" class="assembly-popup-window__submit">Отправить</button>
       <div v-if="!isEmailSubmitted" class="assembly-popup-window__error">{{isErrorShowed ? errorMessage : null}}</div>
       <div v-if="isEmailSubmitted" class="assembly-popup-window__submitted">Спасибо!</div>
+      <AssemblyLoader v-if="isEmailLoading" class="assembly-popup-window__loader" :src="require('../../assets/img/loader.gif')" :width="30" :height="30"/>
     </div>
   </div>
 </template>
@@ -14,9 +15,12 @@
 <script>
 
 import {isEmailValid} from "@/helpers/email";
+import AssemblyLoader from "@/components/AssemblyLoader";
+import {myFetch} from "@/helpers/fetch";
 
 export default {
   name: "AssemblyPopupWindow",
+  components: {AssemblyLoader},
   props: {
     isShowed: {
       type: Boolean,
@@ -31,31 +35,45 @@ export default {
     return {
       errorMessage: "Неверный формат email. Пример: example@yandex.ru",
       isErrorShowed: false,
+      isEmailLoading: false,
     }
   },
   methods: {
     closePopup() {
       this.$emit('closePopup')
     },
-    submitEmailAuth() {
-      const email = document.getElementsByClassName("assembly-popup-window__email")[0].value
-      const isEmailVal = isEmailValid(email)
-
-      if(isEmailVal) {
-        this.hideEmailError()
-        console.log(`${email} провалидирован и готов к отправке на сервер`)
-        this.$emit('submitEmailAuth', email)
-      }
-      else {
-        console.log(`Упс! Невалидный email`)
-        this.showEmailError()
-      }
-    },
     showEmailError() {
       this.isErrorShowed = true
     },
     hideEmailError() {
       this.isErrorShowed = false
+    },
+    submitEmailSuccess(email) {
+      this.isEmailSubmitted = true
+      this.$emit('saveEmail', email)
+    },
+    async submitEmailAuth() {
+      const email = document.getElementsByClassName('assembly-popup-window__email')[0].value
+      const isEmailVal = isEmailValid(email)
+
+      if(isEmailVal) {
+        this.hideEmailError()
+        this.isEmailLoading = true
+        console.log(`${email} провалидирован и готов к отправке на сервер`)
+
+        const url = window.location.href
+        const res = await myFetch(url, email)
+        this.isEmailLoading = false
+
+        if(res) {
+          console.log(res)
+          this.submitEmailSuccess(res)
+        }
+      }
+      else {
+        console.log(`Упс! Невалидный email`)
+        this.showEmailError()
+      }
     }
   },
 }
@@ -167,5 +185,10 @@ export default {
   font-size: 24px;
   text-align: center;
   font-family: 'RotondaC', serif;
+}
+
+.assembly-popup-window__loader
+{
+  margin: 0 auto;
 }
 </style>

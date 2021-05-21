@@ -8,7 +8,7 @@
                       :interval="4000"
       />
       <AssemblyButton @openPopup="openPopup" class="assembly-button-component"/>
-      <AssemblyPopupWindow :isEmailSubmitted="isEmailSubmitted" @submitEmailAuth="submitEmailAuth" @closePopup="closePopup" v-if="isPopupShowed"/>
+      <AssemblyPopupWindow :isEmailSubmitted="isEmailSubmitted" @saveEmail="saveEmail" @closePopup="closePopup" v-if="isPopupShowed"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,6 @@
 <script>
 import AssemblyHeader from "@/components/AssemblyHeader";
 import AssemblySlider from "@/components/slider/AssemblySlider";
-import {myFetch} from "@/helpers/fetch";
 import AssemblyButton from "@/components/AssemblyButton";
 import AssemblyPopupWindow from "@/components/popup/AssemblyPopupWindow";
 
@@ -52,18 +51,9 @@ export default {
     showEmailError() {
       this.isErrorShowed = true
     },
-    submitEmailSuccess(email) {
-      const vm = this
-      console.log(email)
-      vm.user = {...vm.user, email}
-      vm.isEmailSubmitted = true
-    },
-    async submitEmailAuth(email) {
-      const vm = this
-      setTimeout(function() {
-        const url = window.location.href
-        myFetch(url, vm, [email], vm.submitEmailSuccess)
-      }, 1000);
+    saveEmail(email)
+    {
+      this.user = {...this.user, email}
     }
   },
   props : {}
@@ -127,7 +117,7 @@ table {
 .container
 {
   margin: 0 auto;
-  width: 915px;
+  width: 900px;
   display: flex;
   flex-direction: column;
   justify-content: center;

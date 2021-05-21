@@ -1,9 +1,10 @@
-async function myFetch(url, context, args, callback) {
+async function myFetch(url, data) {
     console.log(url)
-    const delay = ms => new Promise(res => setTimeout(res, ms))
-    await delay(1000)
-
-    callback.apply(context, args)
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(data);
+        }, 1000);
+    })
 }
 
 export {myFetch};
