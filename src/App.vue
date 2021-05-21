@@ -127,7 +127,7 @@ table {
 .container
 {
   margin: 0 auto;
-  width: 715px;
+  width: 915px;
   display: flex;
   flex-direction: column;
   justify-content: center;

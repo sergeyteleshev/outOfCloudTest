@@ -1,8 +1,8 @@
 <template>
     <div class="assembly-slider">
-      <div class="assembly-slider__nav" v-on:click="prevSlide($props.data)">
+      <button class="assembly-slider__nav" v-on:click="prevSlide($props.data)">
         <img :src="require('../../assets/img/nav left.svg')">
-      </div>
+      </button>
       <div class="assembly-slider-item-wrapper">
         <div class="assembly-slider" :style="`margin-left: -${(100 * currentSlideIndex)}%`">
           <AssemblySliderItem
@@ -13,9 +13,9 @@
           />
         </div>
       </div>
-      <div class="assembly-slider__nav" v-on:click="nextSlide($props.data)">
+      <button class="assembly-slider__nav" v-on:click="nextSlide($props.data)">
         <img :src="require('../../assets/img/nav right.svg')"/>
-      </div>
+      </button>
     </div>
 </template>
 
@@ -75,29 +75,35 @@ export default {
 <style scoped>
 .assembly-slider
 {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-auto-flow: column;
   overflow: hidden;
-  justify-content: flex-start;
-  align-items: center;
   transition: all ease 0.5s;
 }
 
 .assembly-slider__nav
 {
-  padding: 0 30px;
+  border: none;
+  background: none;
+  text-align: center;
+  vertical-align: center;
 }
 
 .assembly-slider__nav:hover
 {
   cursor: pointer;
-  background: rgba(0,0,0,0.15);
 }
 
 .assembly-slider__nav img
 {
+  padding: 20px 30px;
   width: 20px;
   height: 40px;
+}
+
+.assembly-slider__nav img:hover
+{
+  background: rgba(0,0,0,0.15);
 }
 
 .assembly-slider-item-wrapper

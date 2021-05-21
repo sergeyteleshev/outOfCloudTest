@@ -37,8 +37,6 @@ export default {
 .assembly-slider__item
 {
   text-align: center;
-  width: 640px;
-  height: 450px;
   padding: 40px;
   background-color: white;
   box-shadow: 0 0 40px 0 #0000001A;
