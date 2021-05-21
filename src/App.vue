@@ -1,29 +1,36 @@
 <template>
   <div id="app">
     <div class="container">
-      <AssemblyHeader class="assembly-header-component" text="Взгляните на процесс сборки своими глазами"/>
+      <h2 class="assembly-header">Взгляните на процесс сборки своими глазами</h2>
       <AssemblySlider class="assembly-slider-component"
                       v-if="sliderData" :data="sliderData"
                       :autoChange="false"
                       :interval="4000"
       />
-      <AssemblyButton @openPopup="openPopup" class="assembly-button-component"/>
-      <AssemblyPopupWindow :isEmailSubmitted="isEmailSubmitted" @saveEmail="saveEmail" @closePopup="closePopup" v-if="isPopupShowed"/>
+      <AssemblyButton class="assembly-button-component"
+          :callback="openPopup"
+          width="340px"
+          height="70px"
+          value="К покупкам"/>
+      <AssemblyPopupWindow
+          :isEmailSubmitted="isEmailSubmitted"
+          @saveEmail="saveEmail"
+          @closePopup="closePopup"
+          v-if="isPopupShowed"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AssemblyHeader from "@/components/AssemblyHeader";
 import AssemblySlider from "@/components/slider/AssemblySlider";
-import AssemblyButton from "@/components/AssemblyButton";
+import AssemblyButton from "@/components/buttons/AssemblyButton";
 import AssemblyPopupWindow from "@/components/popup/AssemblyPopupWindow";
 
 export default {
   name: 'App',
   components: {
     AssemblyButton,
-    AssemblyHeader,
     AssemblySlider,
     AssemblyPopupWindow,
   },
@@ -144,9 +151,22 @@ table {
   margin-top: 29px;
 }
 
+.assembly-header
+{
+  margin-top: 40px;
+  font-family: RotondaC,serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 46px;
+  /* or 128% */
+  text-align: center;
+  color: #26303B;
+}
+
 .assembly-button-component
 {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 </style>

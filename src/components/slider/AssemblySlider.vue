@@ -1,6 +1,6 @@
 <template>
     <div class="assembly-slider">
-      <button class="assembly-slider__nav" v-on:click="prevSlide($props.data)">
+      <button class="assembly-slider__nav" v-on:click="prevSlide">
         <img :src="require('../../assets/img/nav left.svg')">
       </button>
       <div class="assembly-slider-item-wrapper">
@@ -13,7 +13,7 @@
           />
         </div>
       </div>
-      <button class="assembly-slider__nav" v-on:click="nextSlide($props.data)">
+      <button class="assembly-slider__nav" v-on:click="nextSlide">
         <img :src="require('../../assets/img/nav right.svg')"/>
       </button>
     </div>
@@ -47,15 +47,15 @@ export default {
     }
   },
   methods: {
-    nextSlide(data) {
-      if(this.currentSlideIndex >= data.length - 1)
+    nextSlide() {
+      if(this.currentSlideIndex >= this.data.length - 1)
         this.currentSlideIndex = 0
       else
         this.currentSlideIndex++
     },
-    prevSlide(data) {
+    prevSlide() {
       if(this.currentSlideIndex === 0)
-        this.currentSlideIndex = data.length - 1
+        this.currentSlideIndex = this.data.length - 1
       else
         this.currentSlideIndex--
     },

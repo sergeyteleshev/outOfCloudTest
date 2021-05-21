@@ -3,7 +3,7 @@
     <div class="assembly-slider-number">{{slideNumber}}</div>
     <div class="assembly-slider__img" v-bind:style="{backgroundImage: 'url(' + require('../../assets/img/' + itemData.img) + ')'}"></div>
     <h3 class="assembly-slider__title">{{itemData.title}}</h3>
-    <div class="assembly-slider__text">{{ itemData.text }}</div>
+    <div class="assembly-slider__text">{{itemData.text}}</div>
   </div>
 </template>
 

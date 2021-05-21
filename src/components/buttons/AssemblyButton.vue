@@ -1,13 +1,31 @@
 <template>
-  <button v-on:click="openPopup" class="assembly__button">К покупкам</button>
+  <button v-on:click="callback" v-bind:style="{width, height}" class="assembly__button">{{value}}</button>
 </template>
 
 <script>
 export default {
   name: "AssemblyButton",
   methods: {
-    openPopup() {
-      this.$emit('openPopup')
+    // openPopup() {
+    //   this.$emit('openPopup')
+    // }
+  },
+  props: {
+    width: {
+      type: String,
+      default: '340px',
+    },
+    height: {
+      type: String,
+      default: '70px',
+    },
+    value: {
+      type: String,
+      default: '',
+    },
+    callback: {
+      type: Function,
+      default: () => {},
     }
   }
 }
@@ -16,10 +34,6 @@ export default {
 <style scoped>
   .assembly__button
   {
-    height: 70px;
-    width: 340px;
-    left: 550px;
-    top: 2603px;
     border-radius: 10px;
     border: none;
     background: linear-gradient(0deg, #7DB945, #7DB945),

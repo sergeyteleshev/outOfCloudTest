@@ -3,9 +3,9 @@
     <div class="assembly-popup-window">
       <div class="assembly-popup-window__close"><span @click="closePopup" class="assembly-popup-close">X</span></div>
       <h3 class="assembly-popup-window__title">Чтобы продолжить покупки необходимо авторизоваться</h3>
-      <input v-if="!isEmailSubmitted" class="assembly-popup-window__email" placeholder="Введите ваш e-mail">
-      <button v-if="!isEmailSubmitted" @click="submitEmailAuth" class="assembly-popup-window__submit">Отправить</button>
-      <div v-if="!isEmailSubmitted" class="assembly-popup-window__error">{{isErrorShowed ? errorMessage : null}}</div>
+      <input v-if="!isEmailSubmitted" class="assembly-popup-window__email" placeholder="Введите ваш e-mail"/>
+      <AssemblyButton v-if="!isEmailSubmitted" :callback="submitEmailAuth" width="100%" height="55px" class="assembly-popup-window__submit" value="Отправить"/>
+      <div v-if="!isEmailSubmitted && isErrorShowed" class="assembly-popup-window__error">{{errorMessage}}</div>
       <div v-if="isEmailSubmitted" class="assembly-popup-window__submitted">Спасибо!</div>
       <AssemblyLoader v-if="isEmailLoading" class="assembly-popup-window__loader" :src="require('../../assets/img/loader.gif')" :width="30" :height="30"/>
     </div>
@@ -17,25 +17,23 @@
 import {isEmailValid} from "@/helpers/email";
 import AssemblyLoader from "@/components/AssemblyLoader";
 import {myFetch} from "@/helpers/fetch";
+import AssemblyButton from "@/components/buttons/AssemblyButton";
 
 export default {
   name: "AssemblyPopupWindow",
-  components: {AssemblyLoader},
+  components: {AssemblyButton, AssemblyLoader},
   props: {
     isShowed: {
       type: Boolean,
       default: false,
     },
-    isEmailSubmitted: {
-      type: Boolean,
-      default: false,
-    }
   },
   data() {
     return {
       errorMessage: "Неверный формат email. Пример: example@yandex.ru",
       isErrorShowed: false,
       isEmailLoading: false,
+      isEmailSubmitted: false,
     }
   },
   methods: {
@@ -189,6 +187,6 @@ export default {
 
 .assembly-popup-window__loader
 {
-  margin: 0 auto;
+  margin: 20px auto;
 }
 </style>
